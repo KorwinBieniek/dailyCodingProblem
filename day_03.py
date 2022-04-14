@@ -32,3 +32,19 @@ def deserialize(serialized_node):
 
 tree = Node('root', Node('left', Node('left.left')), Node('right'))
 assert deserialize(serialize(tree)).left.left.val == "left.left"
+
+# or more Pythonic solution
+
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+    def __repr__(self):
+        return (f'Node({repr(self.val)}, {repr(self.left)}, {repr(self.right)}' + ")")
+
+tree = Node('root', Node('left', Node('left.left')), Node('right'))
+serialized_tree = repr(tree)
+deserialized_tree = eval(serialized_tree)
+assert deserialized_tree.left.left.val == "left.left"
